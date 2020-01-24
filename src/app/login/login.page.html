@@ -1,9 +1,20 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Inicia sesión</ion-title>
+
   </ion-toolbar>
+
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-input type="text" [(ngModel)]="user.email" placeholder="Email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input type="password" [(ngModel)]="user.password" placeholder="Password"></ion-input>
+  </ion-item>
+
+  <ion-button size="small" (click)="onLogin()">Iniciar sesión</ion-button><br>
+  <a routerLink="/registro">¿No tienes ID? Créate uno ahora.</a>
 
 </ion-content>

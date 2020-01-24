@@ -8,22 +8,13 @@
 
 <ion-content padding>
   <ion-item>
-    <ion-label>
-      Email
-    </ion-label>
-    <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+    <ion-input type="text" [(ngModel)]="user.email" placeholder="Email"></ion-input>
   </ion-item>
-</ion-content>
-
-<ion-content padding>
   <ion-item>
-    <ion-label>
-      Password
-    </ion-label>
-    <ion-input type="text" [(ngModel)]="user.password"></ion-input>
+    <ion-input type="password" [(ngModel)]="user.password" placeholder="Password"></ion-input>
   </ion-item>
-  <ion-item-divider>
-    <button size="large" (click)="onRegister()">Continuar</button>
-    <button size="large" href="/login">Continuar</button>
-  </ion-item-divider>
+
+  <ion-button size="small" (click)="onRegister()">Continuar Registro</ion-button>
+  <hr>Ya tienes un ID? <a size="small" routerLink="/login" style="text-decoration:none">Logeate aqui > </a>
+
 </ion-content>

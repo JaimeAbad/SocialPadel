@@ -14,4 +14,12 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {}
 
+  async onRegister(){
+    const user = await this.authSvc.onRegister(this.user);
+    if(user){
+      console.log('Successfully created ID !');
+      this.router.navigateByUrl('/');
+    }
+
+  }
 }
