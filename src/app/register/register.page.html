@@ -1,9 +1,29 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>register</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title>Crear tu Id Social Padel</ion-title>
+
   </ion-toolbar>
+
 </ion-header>
 
-<ion-content>
+<ion-content padding>
+  <ion-item>
+    <ion-label>
+      Email
+    </ion-label>
+    <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+  </ion-item>
+</ion-content>
 
+<ion-content padding>
+  <ion-item>
+    <ion-label>
+      Password
+    </ion-label>
+    <ion-input type="text" [(ngModel)]="user.password"></ion-input>
+  </ion-item>
+  <ion-item-divider>
+    <button size="large" (click)="onRegister()">Continuar</button>
+    <button size="large" href="/login">Continuar</button>
+  </ion-item-divider>
 </ion-content>
