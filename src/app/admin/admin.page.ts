@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from './../cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPage implements OnInit {
 
-  constructor() { }
+  cart = [];
+  items = [];
 
-  ngOnInit() {
+  sliderConfig = {
+
+  }
+
+  constructor(private cartService: CartService, private router: Router){}
+
+  ngOnInit(){
+    this.cart = this.cartService.getCart();
+    this.items = this.cartService.getProducts();
+  }
+
+  addToCart(product){
+    this.cartService.addProduct(product);
+  }
+  openCart(){
+    this.router.navigate(['cart']);
   }
 
 }
