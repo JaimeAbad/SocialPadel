@@ -64,6 +64,7 @@ export class CartService {
     },
     {
       category: "Dia",
+      expanded: true,
       products: [
         { id:1, price:'01' },
         { id:2, price:'02' },
@@ -99,7 +100,8 @@ export class CartService {
       ]
     },
     {
-      category: "Lugar"
+      category: "Lugar",
+      expanded: true
     }
     ];
 

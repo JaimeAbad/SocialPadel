@@ -13,7 +13,9 @@ export class AdminPage implements OnInit {
   items = [];
 
   sliderConfig = {
-
+    spaceBetween: 10,
+    centeredSlides: true,
+    slidesPreview: 1.6
   }
 
   constructor(private cartService: CartService, private router: Router){}
