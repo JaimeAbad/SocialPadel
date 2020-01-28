@@ -6,6 +6,13 @@
     <ion-title>
       Crear Partido
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openCart()">
+        <ion-badge *ngIf="cart.length > 0"> {{ cart.length }} </ion-badge>
+        <ion-icon name="beaker" slot="icon-only"></ion-icon>
+        <!-- name="color-wand" name="cog" name="cash" name="cart" name="apps" name="basket" name="bulb" name="construct" name="flask" name="hammer"-->
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
