@@ -1,5 +1,7 @@
 {
   "name": "SocialPadel",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

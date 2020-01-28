@@ -30,7 +30,7 @@
           <ion-card>
             <ion-card-header>
               <ion-card-title>
-                 {{ product.price }}
+                 {{ product.price || product.date }}
               </ion-card-title>
               <ion-card-content>
                 <ion-button expand="full" (click)="addToCart(product)">Add to Cart</ion-button>
@@ -41,5 +41,34 @@
       </ion-slide>
     </ion-slides>
   </div>
+  <ion-item>
+    <ion-input type="text" placeholder="Indica la direccion del centro deportivo"></ion-input>
+  </ion-item>
+
+
+<!-- CODIGO DEL CALENDARIO -->
+
+<!-- ESTO DEBERIA IR EN EL HEADER -->
+<ion-row no-padding class="category-banner">
+  {{ viewTitle}}
+  <ion-buttons slot="end">
+    <ion-button slot="icon-only" (click)="addEvent()">
+      <ion-icon name="add"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-row>
+
+<calendar [eventSource]="eventSource"
+[calendarMode]="calendar.mode"
+[currentDate]="calendar.currentDate"
+[onEventSelected]="onEventSelected($event)"
+[onTitleChanged]="onViewTitleChanged($event)"
+[onTimeSelected]="onTimeSelected($event)"
+step="30"
+class="calendar">
+</calendar>
+
+
+
 
 </ion-content>
