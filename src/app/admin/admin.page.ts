@@ -42,20 +42,29 @@ export class AdminPage implements OnInit {
     this.selectedDay = ev.selectedTime;
   }
 
-  onEventSelected(event){
+  async onEventSelected(event){
     let start = moment(event.startTime).format('LLLL');
     let end = moment(event.endTime).format('LLLL');
 
-    let alert = this.alertCtrl.create({
-      title: '' + event.title,
-      subTitle: 'From: ' + start + '<br>To: ' + end,
+    let alert = await this.alertCtrl.create({
+      message: '' + event.title,
+      subHeader: 'From: ' + start + '<br>To: ' + end,
       buttons: ['OK']
     });
-    alert.present();
+    await alert.present()
   }
 
-  addEvent(){
+  async addEvent(){
+    let modal = await this.modalCtrl.create('EventModalPage', { selectedDay: this.selectedDay});
+    await modal.present();
+    modal.onDidDismiss(data =>{
+      if(data){
+        let eventData = data;
 
+        eventData.startTime = new Date(data.startTime);
+        eventData.endTime = new Date(data.endTime);
+      }
+    });
   }
 
 
