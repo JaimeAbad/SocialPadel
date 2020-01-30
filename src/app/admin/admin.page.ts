@@ -3,6 +3,7 @@ import { CartService } from './../cart.service';
 import { Router } from '@angular/router';
 import { NavController, ModalController, AlertController } from '@ionic/angular';
 import * as moment from 'moment';
+import { EventModalPage } from '../event-modal/event-modal.page';
 
 @Component({
   selector: 'app-admin',
@@ -55,16 +56,28 @@ export class AdminPage implements OnInit {
   }
 
   async addEvent(){
-    let modal = await this.modalCtrl.create('EventModalPage', { selectedDay: this.selectedDay});
+    let modal = await this.modalCtrl.create({
+      component: EventModalPage,
+      componentProps: { selectedDay: this.selectedDay }
+    });
     await modal.present();
+
     modal.onDidDismiss(data =>{
       if(data){
         let eventData = data;
 
         eventData.startTime = new Date(data.startTime);
         eventData.endTime = new Date(data.endTime);
+
+        // let events = this.eventSource;
+        // events.push(eventData);
+        // this.eventSource = [];
+        // setTimeout(() => {
+        //   this.eventSource = events;
+        // })
       }
     });
+
   }
 
 
