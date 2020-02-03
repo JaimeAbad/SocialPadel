@@ -14,6 +14,8 @@ export class AdminPage implements OnInit {
   eventSource = [];
   viewTitle: string;
   selectedDay = new Date();
+  startTime:any;
+  endTime:any;
 
   cart = [];
   items = [];
@@ -62,19 +64,19 @@ export class AdminPage implements OnInit {
     });
     await modal.present();
 
-    modal.onDidDismiss(data =>{
+    modal.onDidDismiss().then((data) =>{
       if(data){
         let eventData = data;
-
+        
         eventData.startTime = new Date(data.startTime);
         eventData.endTime = new Date(data.endTime);
 
-        // let events = this.eventSource;
-        // events.push(eventData);
-        // this.eventSource = [];
-        // setTimeout(() => {
-        //   this.eventSource = events;
-        // })
+        let events = this.eventSource;
+        events.push(eventData);
+        this.eventSource = [];
+        setTimeout(() => {
+          this.eventSource = events;
+        })
       }
     });
 
