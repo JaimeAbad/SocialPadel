@@ -18,8 +18,11 @@
       <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MM/DD/YYYY HH:mm" [(ngModel)]="event.endTime" [min]="minDate"></ion-datetime>
     </ion-item>
     <ion-item>
-
-      <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input>
+      <ion-label>All Day?</ion-label>
+      <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
     </ion-item>
   </ion-list>
+  <ion-button full icon-left (click)="save()">
+    <ion-icon name="checkmark"></ion-icon> Add Event
+  </ion-button>
 </ion-content>

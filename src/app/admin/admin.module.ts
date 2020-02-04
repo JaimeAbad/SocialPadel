@@ -8,12 +8,16 @@ import { AdminPageRoutingModule } from './admin-routing.module';
 
 import { AdminPage } from './admin.page';
 
+import { NgCalendarModule } from 'ionic2-calendar';
+
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AdminPageRoutingModule
+    AdminPageRoutingModule,
+     NgCalendarModule
   ],
   declarations: [AdminPage]
 })

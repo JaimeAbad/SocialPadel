@@ -11,23 +11,25 @@ import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from './../environments/environment';
-import { NgCalendarModule } from 'ionic2-calendar';
+// import { NgCalendarModule } from 'ionic2-calendar';
+
 
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-    NgCalendarModule,
+    // NgCalendarModule,
     BrowserModule,
     IonicModule.forRoot(), AppRoutingModule,
-  AngularFireModule.initializeApp(environment.firebaseConfig),
-   AngularFireAuthModule
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule
  ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+
   ],
   bootstrap: [AppComponent]
 })

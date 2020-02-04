@@ -10,88 +10,111 @@ import { EventModalPage } from '../event-modal/event-modal.page';
   templateUrl: './admin.page.html',
   styleUrls: ['./admin.page.scss'],
 })
-export class AdminPage implements OnInit {
+export class AdminPage {
+
   eventSource = [];
-  viewTitle: string;
-  selectedDay = new Date();
-  startTime:any;
-  endTime:any;
-
-  cart = [];
-  items = [];
-
-  sliderConfig = {
-    spaceBetween: 10,
-    centeredSlides: true,
-    slidesPreview: 1.6
-  }
 
   calendar = {
     mode: 'month',
-    currentDate: this.selectedDay
+    currentDate: new Date()
   }
 
-  constructor(private alertCtrl: AlertController, private modalCtrl: ModalController ,private cartService: CartService, private router: Router, public navCtrl: NavController){}
+  onEventSelectd() {
 
-  ngOnInit(){
-    this.cart = this.cartService.getCart();
-    this.items = this.cartService.getProducts();
   }
 
-  onViewTitleChanged(title){
-    this.viewTitle = title;
-  }
-  onTimeSelected(ev){
-    this.selectedDay = ev.selectedTime;
+  onViewTitleChanged() {
+
   }
 
-  async onEventSelected(event){
-    let start = moment(event.startTime).format('LLLL');
-    let end = moment(event.endTime).format('LLLL');
-
-    let alert = await this.alertCtrl.create({
-      message: '' + event.title,
-      subHeader: 'From: ' + start + '<br>To: ' + end,
-      buttons: ['OK']
-    });
-    await alert.present()
-  }
-
-  async addEvent(){
-    let modal = await this.modalCtrl.create({
-      component: EventModalPage,
-      componentProps: { selectedDay: this.selectedDay }
-    });
-    await modal.present();
-
-    modal.onDidDismiss().then((data) =>{
-      if(data){
-        let eventData = data;
-        
-        eventData.startTime = new Date(data.startTime);
-        eventData.endTime = new Date(data.endTime);
-
-        let events = this.eventSource;
-        events.push(eventData);
-        this.eventSource = [];
-        setTimeout(() => {
-          this.eventSource = events;
-        })
-      }
-    });
+  onTimeSelected() {
 
   }
 
 
 
 
-
-
-  addToCart(product){
-    this.cartService.addProduct(product);
-  }
-  openCart(){
-    this.router.navigate(['cart']);
-  }
+  // eventSource = [];
+  // viewTitle: string;
+  // selectedDay = new Date();
+  // startTime:Date;
+  // endTime:Date;
+  //
+  // cart = [];
+  // items = [];
+  //
+  // sliderConfig = {
+  //   spaceBetween: 10,
+  //   centeredSlides: true,
+  //   slidesPreview: 1.6
+  // }
+  //
+  // calendar = {
+  //   mode: 'month',
+  //   currentDate: this.selectedDay
+  // }
+  //
+  // constructor(private alertCtrl: AlertController, private modalCtrl: ModalController ,private cartService: CartService, private router: Router, public navCtrl: NavController){}
+  //
+  // ngOnInit(){
+  //   this.cart = this.cartService.getCart();
+  //   this.items = this.cartService.getProducts();
+  // }
+  //
+  // onViewTitleChanged(title){
+  //   this.viewTitle = title;
+  // }
+  // onTimeSelected(ev){
+  //   this.selectedDay = ev.selectedTime;
+  // }
+  //
+  // async onEventSelected(event){
+  //   let start = moment(event.startTime).format('LLLL');
+  //   let end = moment(event.endTime).format('LLLL');
+  //
+  //   let alert = await this.alertCtrl.create({
+  //     message: '' + event.title,
+  //     subHeader: 'From: ' + start + '<br>To: ' + end,
+  //     buttons: ['OK']
+  //   });
+  //   await alert.present()
+  // }
+  //
+  // async addEvent(){
+  //   let modal = await this.modalCtrl.create({
+  //     component: EventModalPage,
+  //     componentProps: { selectedDay: this.selectedDay }
+  //   });
+  //   await modal.present();
+  //
+  //   modal.onDidDismiss().then((data) =>{
+  //     if(data){
+  //       let eventData = data;
+  //
+  //       eventData.startTime = new Date(data.startTime);
+  //       eventData.endTime = new Date(data.endTime);
+  //
+  //       let events = this.eventSource;
+  //       events.push(eventData);
+  //       this.eventSource = [];
+  //       setTimeout(() => {
+  //         this.eventSource = events;
+  //       })
+  //     }
+  //   });
+  //
+  // }
+  //
+  //
+  //
+  //
+  //
+  //
+  // addToCart(product){
+  //   this.cartService.addProduct(product);
+  // }
+  // openCart(){
+  //   this.router.navigate(['cart']);
+  // }
 
 }

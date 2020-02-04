@@ -4,7 +4,8 @@
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
     <ion-title>
-      Crear Partido
+      Crear Partido Calendar
+      {{ ViewTitle }}
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="openCart()">
@@ -16,8 +17,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div *ngFor="let cat of items" class="category-block">
+<ion-content padding>
+  <!-- <div *ngFor="let cat of items" class="category-block">
 
     <ion-row no-padding class="category-banner">
       <ion-col button tappable (click)="cat.expanded = !cat.expanded" class="ion-align-self-center ion-text-left">
@@ -26,8 +27,8 @@
     </ion-row>
     <ion-slides [options]="sliderConfig">
       <ion-slide *ngFor="let product of cat.products">
-        <div *ngIf="cat.expanded"> <!--este div hara que se muestre expandido el que tenga el expanded: true en el data service -->
-          <ion-card>
+        <div *ngIf="cat.expanded"> <!--este div hara que se muestre expandido el que tenga el expanded: true en el data service --> -->
+          <!-- <ion-card>
             <ion-card-header>
               <ion-card-title>
                  {{ product.price || product.date }}
@@ -40,33 +41,36 @@
         </div>
       </ion-slide>
     </ion-slides>
-  </div>
-  <ion-item>
+  </div> -->
+  <!-- <ion-item>
     <ion-input type="text" placeholder="Indica la direccion del centro deportivo"></ion-input>
-  </ion-item>
+  </ion-item> -->
 
 
 <!-- CODIGO DEL CALENDARIO -->
 
 <!-- ESTO DEBERIA IR EN EL HEADER -->
-<ion-row no-padding class="category-banner">
+<!-- <ion-row no-padding class="category-banner">
   {{ viewTitle}}
   <ion-buttons slot="end">
     <ion-button slot="icon-only" (click)="addEvent()">
       <ion-icon name="add"></ion-icon>
     </ion-button>
   </ion-buttons>
-</ion-row>
+</ion-row> -->
 
-<calendar [eventSource]="eventSource"
-[calendarMode]="calendar.mode"
-[currentDate]="calendar.currentDate"
-[onEventSelected]="onEventSelected($event)"
-[onTitleChanged]="onViewTitleChanged($event)"
-[onTimeSelected]="onTimeSelected($event)"
-step="30"
-class="calendar">
-</calendar>
+  <calendar
+    [eventSource]="eventSource"
+    [calendarMode]="calendar.mode"
+    [currentDate]="calendar.currentDate"
+    (onEventSelected)="onEventSelected($event)"
+    (onTitleChanged)="onViewTitleChanged($event)"
+    (onTimeSelected)="onTimeSelected($event)"
+    startHour="6"
+    endHour="20"
+    step="30"
+    startingDayWeek="1">
+  </calendar>
 
 
 
