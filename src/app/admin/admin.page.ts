@@ -1,22 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { CartService } from './../cart.service';
-import { Router } from '@angular/router';
-import { NavController, ModalController, AlertController } from '@ionic/angular';
-import * as moment from 'moment';
-import { EventModalPage } from '../event-modal/event-modal.page';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
+// import { CartService } from './../cart.service';
+// import { Router } from '@angular/router';
+// import { NavController, ModalController, AlertController } from '@ionic/angular';
+// import * as moment from 'moment';
+// import { EventModalPage } from '../event-modal/event-modal.page';
+import { CalendarComponent } from 'ionic2-calendar/calendar';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.page.html',
   styleUrls: ['./admin.page.scss'],
 })
-export class AdminPage {
+export class AdminPage implements OnInit{
+  ngOnInit(): void {
+    throw new Error("Method not implemented.");
+  }
+
+  event = {
+    title:'',
+    desc:'',
+    startTime:'',
+    endTime:'',
+    allDay: false
+  };
+  minDate = new Date().toISOString();
 
   eventSource = [];
 
   calendar = {
     mode: 'month',
     currentDate: new Date()
+  }
+
+  viewTitle='';
+
+  @ViewChildren(CalendarComponent) myCal: CalendarComponent[];
+  constructor(){
+
   }
 
   onEventSelectd() {
