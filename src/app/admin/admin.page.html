@@ -7,13 +7,13 @@
       Crear Partido Calendar
       {{ ViewTitle }}
     </ion-title>
-    <ion-buttons slot="end">
+    <!-- <ion-buttons slot="end">
       <ion-button (click)="openCart()">
         <ion-badge *ngIf="cart.length > 0"> {{ cart.length }} </ion-badge>
         <ion-icon name="beaker" slot="icon-only"></ion-icon>
         <!-- name="color-wand" name="cog" name="cash" name="cart" name="apps" name="basket" name="bulb" name="construct" name="flask" name="hammer"-->
-      </ion-button>
-    </ion-buttons>
+      <!-- </ion-button>
+    </ion-buttons> --> -->
   </ion-toolbar>
 </ion-header>
 
@@ -58,6 +58,33 @@
     </ion-button>
   </ion-buttons>
 </ion-row> -->
+
+  <ion-card>
+    <ion-card-header tappable (click)="collapseCard = !collapseCard">
+      <ion-card-title>New Event</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngIf="!collapseCard">
+      <ion-item>
+        <ion-input type="text" placeholder="Title Ciudad" [(ngModel)]="event.title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="Description Centro Deportivo" [(ngModel)]="event.desc"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Start</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>End</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime" [min]="minDate"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>All Day ?</ion-label>
+        <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
+      </ion-item>
+      <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="event.title == ''">Add Event</ion-button>
+    </ion-card-content>
+  </ion-card>
 
   <calendar
     [eventSource]="eventSource"

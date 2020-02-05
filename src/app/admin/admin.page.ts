@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewChildren } from '@angular/core';
 // import { CartService } from './../cart.service';
 // import { Router } from '@angular/router';
 // import { NavController, ModalController, AlertController } from '@ionic/angular';
@@ -12,9 +12,8 @@ import { CalendarComponent } from 'ionic2-calendar/calendar';
   styleUrls: ['./admin.page.scss'],
 })
 export class AdminPage implements OnInit{
-  ngOnInit(): void {
-    throw new Error("Method not implemented.");
-  }
+
+
 
   event = {
     title:'',
@@ -28,15 +27,29 @@ export class AdminPage implements OnInit{
   eventSource = [];
 
   calendar = {
-    mode: 'month',
+    mode: 'day',
     currentDate: new Date()
   }
 
   viewTitle='';
 
   @ViewChildren(CalendarComponent) myCal: CalendarComponent[];
+
+
   constructor(){
 
+  }
+  ngOnInit() {
+    this.resetEvent();
+  }
+  resetEvent() {
+    this.event = {
+      title:'',
+      desc:'',
+      startTime: new Date().toISOString(),
+      endTime: new Date().toISOString(),
+      allDay: false
+    };
   }
 
   onEventSelectd() {
@@ -49,6 +62,28 @@ export class AdminPage implements OnInit{
 
   onTimeSelected() {
 
+  }
+
+  addEvent() {
+    let eventCopy = {
+      title: this.event.title,
+      desc:this.event.desc,
+      startTime: new Date(this.event.startTime),
+      endTime: new Date(this.event.endTime),
+      allDay: this.event.allDay
+    }
+    if(eventCopy.allDay) {
+      let start = eventCopy.startTime;
+      let end = eventCopy.endTime;
+
+
+      eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
+      eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
+    }
+
+    this.eventSource.push(eventCopy);
+    this.myCal.loadEvents()
+    this.resetEvent();
   }
 
 
