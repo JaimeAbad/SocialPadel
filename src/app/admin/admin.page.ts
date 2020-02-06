@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewChildren, Inject, LOCALE_ID } from '@angular/core';
 // import { CartService } from './../cart.service';
 // import { Router } from '@angular/router';
 // import { NavController, ModalController, AlertController } from '@ionic/angular';
 // import * as moment from 'moment';
 // import { EventModalPage } from '../event-modal/event-modal.page';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
+import { formatDate } from '@angular/common';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-admin',
@@ -22,12 +24,13 @@ export class AdminPage implements OnInit{
     endTime:'',
     allDay: false
   };
+
   minDate = new Date().toISOString();
 
   eventSource = [];
 
   calendar = {
-    mode: 'day',
+    mode: 'month',
     currentDate: new Date()
   }
 
@@ -36,7 +39,7 @@ export class AdminPage implements OnInit{
   @ViewChildren(CalendarComponent) myCal: CalendarComponent[];
 
 
-  constructor(){
+  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID)private locale: string){
 
   }
   ngOnInit() {
@@ -52,25 +55,13 @@ export class AdminPage implements OnInit{
     };
   }
 
-  onEventSelectd() {
-
-  }
-
-  onViewTitleChanged() {
-
-  }
-
-  onTimeSelected() {
-
-  }
-
   addEvent() {
     let eventCopy = {
       title: this.event.title,
-      desc:this.event.desc,
       startTime: new Date(this.event.startTime),
       endTime: new Date(this.event.endTime),
-      allDay: this.event.allDay
+      allDay: this.event.allDay,
+      desc:this.event.desc
     }
     if(eventCopy.allDay) {
       let start = eventCopy.startTime;
@@ -82,94 +73,52 @@ export class AdminPage implements OnInit{
     }
 
     this.eventSource.push(eventCopy);
-    this.myCal.loadEvents()
+    this.myCal.loadEvents();
     this.resetEvent();
+  }
+
+  changeMode(mode) {
+    this.calendar.mode = mode;
+  }
+
+  back(){
+    var swiper = document.querySelector('.swiper-container')['swiper'];
+    swiper.slidePrev();
+  }
+
+  next(){
+    var swiper = document.querySelector('.swiper-container')['swiper'];
+    swiper.slideNext();
+  }
+  today() {
+    this.calendar.currentDate = new Date();
+  }
+
+  async onEventSelected(event) {
+    let start = formatDate(event.startTime, 'medium', this.locale);
+    let end = formatDate(event.endTime, 'medium', this.locale);
+
+    const alert = await this.alertCtrl.create({
+      header: event.title,
+      subHeader: event.desc,
+      message: 'From: ' + start + '<br><br>To: ' + end,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  onViewTitleChanged(title) {
+    this.viewTitle = title;
+  }
+
+  onTimeSelected(ev) {
+    let selected = new Date(ev.selectedTime);
+    this.event.startTime = selected.toISOString();
+    selected.setHours(selected.getHours() + 1);
+    this.event.endTime = (selected.toISOString());
   }
 
 
 
-
-  // eventSource = [];
-  // viewTitle: string;
-  // selectedDay = new Date();
-  // startTime:Date;
-  // endTime:Date;
-  //
-  // cart = [];
-  // items = [];
-  //
-  // sliderConfig = {
-  //   spaceBetween: 10,
-  //   centeredSlides: true,
-  //   slidesPreview: 1.6
-  // }
-  //
-  // calendar = {
-  //   mode: 'month',
-  //   currentDate: this.selectedDay
-  // }
-  //
-  // constructor(private alertCtrl: AlertController, private modalCtrl: ModalController ,private cartService: CartService, private router: Router, public navCtrl: NavController){}
-  //
-  // ngOnInit(){
-  //   this.cart = this.cartService.getCart();
-  //   this.items = this.cartService.getProducts();
-  // }
-  //
-  // onViewTitleChanged(title){
-  //   this.viewTitle = title;
-  // }
-  // onTimeSelected(ev){
-  //   this.selectedDay = ev.selectedTime;
-  // }
-  //
-  // async onEventSelected(event){
-  //   let start = moment(event.startTime).format('LLLL');
-  //   let end = moment(event.endTime).format('LLLL');
-  //
-  //   let alert = await this.alertCtrl.create({
-  //     message: '' + event.title,
-  //     subHeader: 'From: ' + start + '<br>To: ' + end,
-  //     buttons: ['OK']
-  //   });
-  //   await alert.present()
-  // }
-  //
-  // async addEvent(){
-  //   let modal = await this.modalCtrl.create({
-  //     component: EventModalPage,
-  //     componentProps: { selectedDay: this.selectedDay }
-  //   });
-  //   await modal.present();
-  //
-  //   modal.onDidDismiss().then((data) =>{
-  //     if(data){
-  //       let eventData = data;
-  //
-  //       eventData.startTime = new Date(data.startTime);
-  //       eventData.endTime = new Date(data.endTime);
-  //
-  //       let events = this.eventSource;
-  //       events.push(eventData);
-  //       this.eventSource = [];
-  //       setTimeout(() => {
-  //         this.eventSource = events;
-  //       })
-  //     }
-  //   });
-  //
-  // }
-  //
-  //
-  //
-  //
-  //
-  //
-  // addToCart(product){
-  //   this.cartService.addProduct(product);
-  // }
-  // openCart(){
-  //   this.router.navigate(['cart']);
-  // }
 
 }

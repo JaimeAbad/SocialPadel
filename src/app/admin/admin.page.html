@@ -1,67 +1,20 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref=""></ion-back-button>
-    </ion-buttons>
+  <ion-toolbar color="primary">
     <ion-title>
       Crear Partido Calendar
       {{ ViewTitle }}
     </ion-title>
-    <!-- <ion-buttons slot="end">
-      <ion-button (click)="openCart()">
-        <ion-badge *ngIf="cart.length > 0"> {{ cart.length }} </ion-badge>
-        <ion-icon name="beaker" slot="icon-only"></ion-icon>
-        <!-- name="color-wand" name="cog" name="cash" name="cart" name="apps" name="basket" name="bulb" name="construct" name="flask" name="hammer"-->
-      <!-- </ion-button>
-    </ion-buttons> --> -->
+    <ion-buttons slot="end">
+      <ion-button (click)="today()">Today</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <!-- <div *ngFor="let cat of items" class="category-block">
-
-    <ion-row no-padding class="category-banner">
-      <ion-col button tappable (click)="cat.expanded = !cat.expanded" class="ion-align-self-center ion-text-left">
-        {{cat.category}}
-      </ion-col>
-    </ion-row>
-    <ion-slides [options]="sliderConfig">
-      <ion-slide *ngFor="let product of cat.products">
-        <div *ngIf="cat.expanded"> <!--este div hara que se muestre expandido el que tenga el expanded: true en el data service --> -->
-          <!-- <ion-card>
-            <ion-card-header>
-              <ion-card-title>
-                 {{ product.price || product.date }}
-              </ion-card-title>
-              <ion-card-content>
-                <ion-button expand="full" (click)="addToCart(product)">Add to Cart</ion-button>
-              </ion-card-content>
-            </ion-card-header>
-          </ion-card>
-        </div>
-      </ion-slide>
-    </ion-slides>
-  </div> -->
-  <!-- <ion-item>
-    <ion-input type="text" placeholder="Indica la direccion del centro deportivo"></ion-input>
-  </ion-item> -->
-
-
-<!-- CODIGO DEL CALENDARIO -->
-
-<!-- ESTO DEBERIA IR EN EL HEADER -->
-<!-- <ion-row no-padding class="category-banner">
-  {{ viewTitle}}
-  <ion-buttons slot="end">
-    <ion-button slot="icon-only" (click)="addEvent()">
-      <ion-icon name="add"></ion-icon>
-    </ion-button>
-  </ion-buttons>
-</ion-row> -->
+<ion-content>
 
   <ion-card>
     <ion-card-header tappable (click)="collapseCard = !collapseCard">
-      <ion-card-title>New Event</ion-card-title>
+      <ion-card-title>New Event/ New Match / Configurar Partido</ion-card-title>
     </ion-card-header>
     <ion-card-content *ngIf="!collapseCard">
       <ion-item>
@@ -86,6 +39,33 @@
     </ion-card-content>
   </ion-card>
 
+  <ion-row>
+    <ion-col size="4">
+      <ion-button expand="block" [color]="calendar.mode == 'month' ? 'primary': 'secondary'" (click)="changeMode('month')">Month</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button expand="block" [color]="calendar.mode == 'week' ? 'primary': 'secondary'" (click)="changeMode('week')">Week</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button expand="block" [color]="calendar.mode == 'day' ? 'primary': 'secondary'" (click)="changeMode('day')">Day</ion-button>
+    </ion-col>
+
+    <ion-col size="6" ion-text-left>
+      <ion-button fill="clear" (click)="back()">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+    <ion-col size="6" ion-text-right>
+      <ion-button fill="clear" (click)="next()">
+        <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+  </ion-row>
+
+
+
   <calendar
     [eventSource]="eventSource"
     [calendarMode]="calendar.mode"
@@ -98,8 +78,5 @@
     step="30"
     startingDayWeek="1">
   </calendar>
-
-
-
 
 </ion-content>
