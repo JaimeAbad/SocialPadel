@@ -1,9 +1,4 @@
-import { Component, OnInit, ViewChildren, Inject, LOCALE_ID } from '@angular/core';
-// import { CartService } from './../cart.service';
-// import { Router } from '@angular/router';
-// import { NavController, ModalController, AlertController } from '@ionic/angular';
-// import * as moment from 'moment';
-// import { EventModalPage } from '../event-modal/event-modal.page';
+import { Component, OnInit, Inject, LOCALE_ID, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 import { formatDate } from '@angular/common';
 import { AlertController } from '@ionic/angular';
@@ -36,7 +31,7 @@ export class AdminPage implements OnInit{
 
   viewTitle='';
 
-  @ViewChildren(CalendarComponent) myCal: CalendarComponent[];
+  @ViewChild(CalendarComponent,null) myCal: CalendarComponent[];
 
 
   constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID)private locale: string){
