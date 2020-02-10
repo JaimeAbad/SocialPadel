@@ -29,6 +29,7 @@ import { environment } from './../environments/environment';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    // { provide: FirestoreSettingsToken, useValue: { }}
 
   ],
   bootstrap: [AppComponent]

@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, LOCALE_ID, ViewChild } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 import { formatDate } from '@angular/common';
 import { AlertController } from '@ionic/angular';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-admin',
@@ -16,7 +17,7 @@ export class AdminPage implements OnInit{
     title:'',
     desc:'',
     startTime:'',
-    endTime:'',
+    endTime:'55',
     allDay: false
   };
 
@@ -38,14 +39,14 @@ export class AdminPage implements OnInit{
 
   }
   ngOnInit() {
-    this.resetEvent();
+    // this.resetEvent();
   }
   resetEvent() {
     this.event = {
       title:'',
       desc:'',
       startTime: new Date().toISOString(),
-      endTime: new Date().toISOString(),
+      // endTime: new Date().toISOString(),
       allDay: false
     };
   }
@@ -68,6 +69,7 @@ export class AdminPage implements OnInit{
     }
 
     this.eventSource.push(eventCopy);
+    firebase.database().ref('eventos/5').set(eventCopy);
     // this.myCal.loadEvents();
     this.resetEvent();
   }
@@ -111,7 +113,7 @@ export class AdminPage implements OnInit{
     let selected = new Date(ev.selectedTime);
     this.event.startTime = selected.toISOString();
     selected.setHours(selected.getHours() + 1);
-    this.event.endTime = (selected.toISOString());
+    this.event.endTime = "55";
   }
 
 
