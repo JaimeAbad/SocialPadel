@@ -68,7 +68,7 @@ export class AdminPage implements OnInit{
     }
 
     this.eventSource.push(eventCopy);
-    this.myCal.loadEvents();
+    // this.myCal.loadEvents();
     this.resetEvent();
   }
 
@@ -96,7 +96,8 @@ export class AdminPage implements OnInit{
     const alert = await this.alertCtrl.create({
       header: event.title,
       subHeader: event.desc,
-      message: 'From: ' + start + '<br><br>To: ' + end,
+      message: start,
+      // 'From: ' + start + '<br><br>To: ' + end,
       buttons: ['OK']
     });
     alert.present();
