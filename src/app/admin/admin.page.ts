@@ -21,6 +21,7 @@ export class AdminPage implements OnInit{
     allDay: false
   };
 
+
   minDate = new Date().toISOString();
 
   eventSource = [];
@@ -63,10 +64,19 @@ export class AdminPage implements OnInit{
       let start = eventCopy.startTime;
       let end = eventCopy.endTime;
 
-
+// , start.getHours(), start.getMinutes() + start.getTimezoneOffset()
       eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
       eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
     }
+    // eventCopy.startTime = new Date(Date.UTC(eventCopy.startTime.getUTCFullYear(), eventCopy.startTime.getUTCMonth(), eventCopy.startTime.getUTCDate(), eventCopy.startTime.getHours() + eventCopy.startTime.getTimezoneOffset()/60));
+
+    // console.log("timezone");
+    // console.log(eventCopy.startTime.getHours()-eventCopy.startTime.getTimezoneOffset()/60);
+    // console.log("hora");
+    // console.log(eventCopy.startTime.getHours());
+    // console.log("mira");
+    // console.log(eventCopy);
+
 
     this.eventSource.push(eventCopy);
     // aqui lo subo a firebase
@@ -74,6 +84,7 @@ export class AdminPage implements OnInit{
     firebase.database().ref(`eventos/${id}`).update(eventCopy);
     // this.myCal.loadEvents();
     this.resetEvent();
+
   }
 
   changeMode(mode) {
@@ -111,11 +122,26 @@ export class AdminPage implements OnInit{
     this.viewTitle = title;
   }
 
+
+// Muestra la misma hora
   onTimeSelected(ev) {
+
     let selected = new Date(ev.selectedTime);
     this.event.startTime = selected.toISOString();
-    selected.setHours(selected.getHours() + 12);
+    selected.setHours(selected.getHours() + 1);
     this.event.endTime = (selected.toISOString());
+    // let selected = new Date(ev.selectedTime);
+    // this.event.startTime = selected.toISOString();
+    // console.log("this.event.startTime");
+    // console.log(this.event.startTime);
+    //
+    // selected.setHours(selected.getHours() + 5);
+    // // console.log("selected.setHours(selected.getHours() + 3)");
+    // // console.log(selected.setHours(selected.getHours() + 6));
+    // this.event.endTime = (selected.toISOString());
+    // console.log("this.event.endTime");
+    // console.log(this.event.endTime);
+
   }
 
 

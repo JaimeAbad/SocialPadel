@@ -28,7 +28,7 @@
       </ion-item>
       <ion-item>
         <ion-label>Start</ion-label>
-        <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
+        <ion-datetime display-timezone="utc" displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime" [(ngModel)]="event.endTime" [min]="minDate"></ion-datetime>
       </ion-item>
       <!-- <ion-item>
         <ion-label>End</ion-label>
@@ -70,7 +70,7 @@
 
   </ion-row>
 
-
+<p>kkoli</p>
 <!-- Cuando le de al onEventSelected y aparezcan los datos del partido crear un boton para el registro etc-->
   <calendar
     [eventSource]="eventSource"
@@ -84,5 +84,5 @@
     step="30"
     startingDayWeek="1">
   </calendar>
-
+  <p>hola</p>
 </ion-content>
