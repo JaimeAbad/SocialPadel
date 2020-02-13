@@ -17,7 +17,7 @@ export class AdminPage implements OnInit{
     title:'',
     desc:'',
     startTime:'',
-    endTime:'55',
+    endTime:'',
     allDay: false
   };
 
@@ -39,14 +39,14 @@ export class AdminPage implements OnInit{
 
   }
   ngOnInit() {
-    // this.resetEvent();
+    this.resetEvent();
   }
   resetEvent() {
     this.event = {
       title:'',
       desc:'',
       startTime: new Date().toISOString(),
-      // endTime: new Date().toISOString(),
+      endTime: new Date().toISOString(),
       allDay: false
     };
   }
@@ -69,7 +69,9 @@ export class AdminPage implements OnInit{
     }
 
     this.eventSource.push(eventCopy);
-    firebase.database().ref('eventos/5').set(eventCopy);
+    // aqui lo subo a firebase
+    let id=  new Date().getTime();
+    firebase.database().ref(`eventos/${id}`).update(eventCopy);
     // this.myCal.loadEvents();
     this.resetEvent();
   }
@@ -112,8 +114,8 @@ export class AdminPage implements OnInit{
   onTimeSelected(ev) {
     let selected = new Date(ev.selectedTime);
     this.event.startTime = selected.toISOString();
-    selected.setHours(selected.getHours() + 1);
-    this.event.endTime = "55";
+    selected.setHours(selected.getHours() + 12);
+    this.event.endTime = (selected.toISOString());
   }
 
 
