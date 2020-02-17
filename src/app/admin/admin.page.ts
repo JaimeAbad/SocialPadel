@@ -67,6 +67,10 @@ export class AdminPage implements OnInit{
 // , start.getHours(), start.getMinutes() + start.getTimezoneOffset()
       eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
       eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
+    }else if(! eventCopy.allDay) {
+      let end = eventCopy.startTime;
+
+      eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate(), end.getHours() +1 ));
     }
     // eventCopy.startTime = new Date(Date.UTC(eventCopy.startTime.getUTCFullYear(), eventCopy.startTime.getUTCMonth(), eventCopy.startTime.getUTCDate(), eventCopy.startTime.getHours() + eventCopy.startTime.getTimezoneOffset()/60));
 
@@ -123,12 +127,11 @@ export class AdminPage implements OnInit{
   }
 
 
-// Muestra la misma hora
   onTimeSelected(ev) {
 
     let selected = new Date(ev.selectedTime);
     this.event.startTime = selected.toISOString();
-    selected.setHours(selected.getHours() + 1);
+    selected.setHours(selected.getHours());
     this.event.endTime = (selected.toISOString());
     // let selected = new Date(ev.selectedTime);
     // this.event.startTime = selected.toISOString();
