@@ -25,11 +25,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'cart',
-    loadChildren: () => import('./cart/cart.module').then( m => m.CartPageModule),
-    canActivate: [AuthGuard]
-  },
-  {
     path: 'event-modal',
     loadChildren: () => import('./event-modal/event-modal.module').then( m => m.EventModalPageModule)
   }
