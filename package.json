@@ -28,6 +28,7 @@
     "cordova-plugin-calendar": "^5.1.5",
     "core-js": "^2.5.4",
     "firebase": "^7.7.0",
+    "firebase-admin": "^8.9.2",
     "intl": "^1.2.5",
     "ionic2-calendar": "^0.5.8",
     "moment": "^2.24.0",

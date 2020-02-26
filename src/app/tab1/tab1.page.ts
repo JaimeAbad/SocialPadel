@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { IdeaService } from '../services/idea.service';
-import * as firebase from 'firebase';
+import { Component } from '@angular/core';
+import { AngularFireList, AngularFireDatabase } from '@angular/fire/database';
+import { Observable } from 'rxjs';
+import { NavController, AlertController } from '@ionic/angular';
+import { map } from "rxjs/operators";
 
 
 @Component({
@@ -8,19 +10,27 @@ import * as firebase from 'firebase';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements OnInit {
-  // var database: firebase.database();
-  listaPartidos =  [];
+export class Tab1Page {
 
+  tasksRef: AngularFireList<any>;
+  tasks: Observable<any[]>;
 
-  constructor(private idea: IdeaService){}
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public database: AngularFireDatabase){
 
-  ngOnInit(){
-    // this.idea.getPartidos().subscribe(res => {
-    //   this.listaPartidos = res;
-    //   console.log(res);
-    // });
+    this.tasksRef = this.database.list('eventos');
+    this.tasks = this.tasksRef.snapshotChanges().pipe(
+    map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    }));
   }
+
+  deleteTarea(){
+    this.tasksRef.remove( 'key' );
+  }
+
+
+
+
 
 
 }
