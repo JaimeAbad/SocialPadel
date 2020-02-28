@@ -24,10 +24,15 @@ export class Tab1Page {
     }));
   }
 
-  deleteTarea(){
-    this.tasksRef.remove( 'key' );
+  removeTarea(task){
+    this.tasksRef.remove( task.key );
   }
-
+  updateTask( task ){
+      this.tasksRef.update( task.key,{
+        title: task.title,
+        done: !task.done
+      });
+    }
 
 
 

@@ -86,7 +86,7 @@ export class AdminPage implements OnInit{
     // aqui lo subo a firebase
     let id=  new Date().getTime();
     firebase.database().ref(`eventos/${id}`).update(eventCopy);
-    this.myCal.loadEvents();
+    // this.myCal.loadEvents();
     this.resetEvent();
 
   }
